@@ -10,38 +10,27 @@ has a length of m + n, where the first m elements denote the elements
 that should be merged, and the last n elements are set to 0 and should
 be ignored. nums2 has a length of n.*/
 
-/*
-
-let (mut i, mut j, mut k) = ((m - 1) as usize, (n - 1) as usize, (m + n - 1) as usize);
-
-    while i != usize::MAX && j != usize::MAX {
-        if nums1[i] > nums2[j] {
-            nums1[k] = nums1[i];
-            if i == 0 { i = usize::MAX; } else { i -= 1; }
-        } else {
-            nums1[k] = nums2[j];
-            if j == 0 { j = usize::MAX; } else { j -= 1; }
-        }
-        k -= 1;
-    }
-
-    while j != usize::MAX {
-        nums1[k] = nums2[j];
-        if k == 0 { break; } else { k -= 1; }
-        if j == 0 { break; } else { j -= 1; }
-    }
-*/
+/* IMPORTANT: Cannot cast `m-1` as usize because in Rust, casting a neg value to usize
+results in a very large positive number because usize is an unsigned integer type.
+This causes the test to fail since the indices are out of bounds.*/
 
 pub struct Solution;
 
 impl Solution {
     pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
-        /* IMPORTANT: Cannot cast `m-1` as usize because in Rust, casting a neg value to usize
-        results in a very large positive number because usize is an unsigned integer type.
-        This causes the test to fail since the indices are out of bounds.*/
+		let (mut i, mut j, mut k) = (m as usize, n as usize, (m + n) as usize);
 		
-		// Implement here
-    }
+		while j > 0 {
+			if i == 0 || nums2[j - 1] > nums1[i - 1] {
+				nums1[k - 1] = nums2[j - 1];
+				j -= 1;
+			}else{
+				nums1[k - 1] = nums1[i - 1];
+				i -= 1;
+			}
+			k -= 1;
+		}
+	}
 }
 
 #[cfg(test)]
