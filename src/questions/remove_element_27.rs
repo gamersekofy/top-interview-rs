@@ -6,26 +6,7 @@ pub struct Solution {}
 
 impl Solution {
     pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
-        /*Plan:
-            1. Iterate over elements of nums
-                1.1 Maintain two pointers:
-                    i = start of nums
-                    j = start of nums
-            2. i++ as iteration progresses
-            3. j++ if nums[i] != val
-            4. Call vector truncate(len) function at j
-            5. Return j as the final length of the vector
-        */
-		
-		let mut j: usize = 0;
-		for i in 0..nums.len() {
-			if nums[i] != val {
-				nums[j] = nums[i];
-				j += 1;
-			}
-		}
-		nums.truncate(j);
-		j as i32
+        todo!()
     }
 }
 
