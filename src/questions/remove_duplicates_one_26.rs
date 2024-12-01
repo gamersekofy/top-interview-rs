@@ -22,7 +22,20 @@ pub struct Solution;
 
 impl Solution {
     pub fn remove_duplicates(nums: &mut Vec<i32>) -> i32 {
-        todo!()
+        if nums.is_empty() {
+            return 0;
+        }
+
+        let mut j = 0;
+
+        for i in 1..nums.len() {
+            if nums[i] != nums[j] {
+                j += 1;
+                nums[j] = nums[i];
+            }
+        }
+        nums.truncate(j + 1);
+        (j + 1) as i32
     }
 }
 
@@ -37,7 +50,7 @@ mod tests {
         let result = Solution::remove_duplicates(&mut nums);
         let expected_result: Vec<i32> = vec![1, 2, 3, 4, 5];
         assert_eq!(result, expected_result.len() as i32);
-        assert_eq!(&nums[..result as usize], &expected_result[..]);
+        assert_eq!(&nums, &expected_result);
 
         // Test case 2
         let mut nums: Vec<i32> = vec![
@@ -46,13 +59,13 @@ mod tests {
         let result = Solution::remove_duplicates(&mut nums);
         let expected_result: Vec<i32> = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         assert_eq!(result, expected_result.len() as i32);
-        assert_eq!(&nums[..result as usize], &expected_result[..]);
+        assert_eq!(&nums, &expected_result);
 
         // Test case 3
         let mut nums: Vec<i32> = vec![10, 20, 30, 40];
         let result = Solution::remove_duplicates(&mut nums);
         let expected_result: Vec<i32> = vec![10, 20, 30, 40];
         assert_eq!(result, expected_result.len() as i32);
-        assert_eq!(&nums[..result as usize], &expected_result[..]);
+        assert_eq!(&nums, &expected_result);
     }
 }
